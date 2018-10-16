@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds" debug="false">
+    <property name="logRoot" value="/Users/yejun/logs/zb-rollean"/>
+    <!-- appender -->
+    <appender name="CONSOLE-APPENDER" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%date{yyyy-MM-ddHH:mm:ss}] %p %C %t %X{logPrefix}, %m%n</Pattern>
+        </layout>
+        <encoder>
+            <!--<pattern>%d %p (%file:%line\)- %m%n</pattern>-->
+            <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--<appender name="ASYNC-CONSOLE-APPENDER" class="ch.qos.logback.classic.AsyncAppender">-->
+        <!--&lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 &ndash;&gt;-->
+        <!--<discardingThreshold>0</discardingThreshold>-->
+        <!--&lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256, 例子中8192为8k &ndash;&gt;-->
+        <!--<queueSize>8192</queueSize>-->
+        <!--&lt;!&ndash; 添加附加的appender,最多只能添加一个 &ndash;&gt;-->
+        <!--<appender-ref ref="CONSOLE-APPENDER"/>-->
+    <!--</appender>-->
+
+    <appender name="ERROR-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logRoot}/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logRoot}/error.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%date{yyyy-MM-ddHH:mm:ss}] %p %C %t %X{logPrefix}, %m%n</Pattern>
+        </layout>
+        <encoder>
+            <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="DEFAULT-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logRoot}/default.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logRoot}/default.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%date{yyyy-MM-ddHH:mm:ss}] %p %C %t %X{logPrefix}, %m%n</Pattern>
+        </layout>
+        <encoder>
+            <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <appender name="WEB-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logRoot}/web.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logRoot}/web.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%date{yyyy-MM-ddHH:mm:ss}] %p %C %t %X{logPrefix}, %m%n</Pattern>
+        </layout>
+        <encoder>
+            <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="SERVICE-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logRoot}/service.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logRoot}/service.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%date{yyyy-MM-ddHH:mm:ss}] %p %C %t %X{logPrefix}, %m%n</Pattern>
+        </layout>
+        <encoder>
+            <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--<appender name="ASYNC-DEFAULT-APPENDER" class="ch.qos.logback.classic.AsyncAppender">-->
+        <!--&lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 &ndash;&gt;-->
+        <!--<discardingThreshold>0</discardingThreshold>-->
+        <!--&lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256, 例子中8192为8k &ndash;&gt;-->
+        <!--<queueSize>8192</queueSize>-->
+        <!--&lt;!&ndash; 添加附加的appender,最多只能添加一个 &ndash;&gt;-->
+        <!--<appender-ref ref="DEFAULT-APPENDER"/>-->
+    <!--</appender>-->
+
+    <appender name="INTEGRATION-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logRoot}/integration.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logRoot}/integration.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%date{yyyy-MM-ddHH:mm:ss}] %p %C %t %X{logPrefix}, %m%n</Pattern>
+        </layout>
+        <encoder>
+            <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--<appender name="ASYNC-INTEGRATION-APPENDER" class="ch.qos.logback.classic.AsyncAppender">-->
+        <!--&lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 &ndash;&gt;-->
+        <!--<discardingThreshold>0</discardingThreshold>-->
+        <!--&lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256, 例子中8192为8k &ndash;&gt;-->
+        <!--<queueSize>8192</queueSize>-->
+        <!--&lt;!&ndash; 添加附加的appender,最多只能添加一个 &ndash;&gt;-->
+        <!--<appender-ref ref="INTEGRATION-APPENDER"/>-->
+    <!--</appender>-->
+
+    <appender name="NORMAL-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logRoot}/normal.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logRoot}/normal.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%date{yyyy-MM-ddHH:mm:ss}] %p %C %t %X{logPrefix}, %m%n</Pattern>
+        </layout>
+        <encoder>
+            <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--<appender name="ASYNC-NORMAL-APPENDER" class="ch.qos.logback.classic.AsyncAppender">-->
+        <!--&lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 &ndash;&gt;-->
+        <!--<discardingThreshold>0</discardingThreshold>-->
+        <!--&lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256, 例子中8192为8k &ndash;&gt;-->
+        <!--<queueSize>8192</queueSize>-->
+        <!--&lt;!&ndash; 添加附加的appender,最多只能添加一个 &ndash;&gt;-->
+        <!--<appender-ref ref="NORMAL-APPENDER"/>-->
+    <!--</appender>-->
+
+    <appender name="DAL-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logRoot}/dal.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logRoot}/dal.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%date{yyyy-MM-ddHH:mm:ss}] %p %C %t %X{logPrefix}, %m%n</Pattern>
+        </layout>
+        <encoder>
+            <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--<appender name="ASYNC-DAL-APPENDER" class="ch.qos.logback.classic.AsyncAppender">-->
+        <!--&lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 &ndash;&gt;-->
+        <!--<discardingThreshold>0</discardingThreshold>-->
+        <!--&lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256, 例子中8192为8k &ndash;&gt;-->
+        <!--<queueSize>8192</queueSize>-->
+        <!--&lt;!&ndash; 添加附加的appender,最多只能添加一个 &ndash;&gt;-->
+        <!--<appender-ref ref="DAL-APPENDER"/>-->
+    <!--</appender>-->
+
+
+    <!--******************************-->
+    <!-- dispatch to the log file -->
+    <!--******************************-->
+    <logger name="com.ibatis" additivity="false">
+        <level value="warn"/>
+        <appender-ref ref="DAL-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+    <logger name="java.sql" additivity="false">
+        <level value="warn"/>
+        <appender-ref ref="DAL-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+    <logger name="com.rollean.zb" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="NORMAL-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+        <appender-ref ref="CONSOLE-APPENDER"/>
+    </logger>
+    <logger name="com.rollean.zb.service" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="SERVICE-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+    <logger name="com.rollean.zb.web" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="WEB-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+    <logger name="org.springframework" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="DEFAULT-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+
+    <!-- root -->
+    <root level="info">
+        <!--error日志不建议改异步方式 -->
+        <!--<appender-ref ref="ERROR-APPENDER"/>-->
+        <appender-ref ref="CONSOLE-APPENDER"/>
+    </root>
+
+</configuration>
