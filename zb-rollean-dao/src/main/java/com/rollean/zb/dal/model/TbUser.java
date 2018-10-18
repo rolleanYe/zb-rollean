@@ -13,10 +13,10 @@ public class TbUser {
     private Integer id;
 
     /**
-     * 姓名
+     * 昵称
      */
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "NICKNAME")
+    private String nickname;
 
     /**
      * 年龄
@@ -37,6 +37,18 @@ public class TbUser {
     private String email;
 
     /**
+     * 密码
+     */
+    @Column(name = "PWD")
+    private String pwd;
+
+    /**
+     * 性别(0保密 1男 2女)
+     */
+    @Column(name = "GENDER")
+    private Integer gender;
+
+    /**
      * 获取主键(自增处理)
      *
      * @return ID - 主键(自增处理)
@@ -55,21 +67,21 @@ public class TbUser {
     }
 
     /**
-     * 获取姓名
+     * 获取昵称
      *
-     * @return NAME - 姓名
+     * @return NICKNAME - 昵称
      */
-    public String getName() {
-        return name;
+    public String getNickname() {
+        return nickname;
     }
 
     /**
-     * 设置姓名
+     * 设置昵称
      *
-     * @param name 姓名
+     * @param nickname 昵称
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     /**
@@ -124,5 +136,41 @@ public class TbUser {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * 获取密码
+     *
+     * @return PWD - 密码
+     */
+    public String getPwd() {
+        return pwd;
+    }
+
+    /**
+     * 设置密码
+     *
+     * @param pwd 密码
+     */
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    /**
+     * 获取性别(0保密 1男 2女)
+     *
+     * @return GENDER - 性别(0保密 1男 2女)
+     */
+    public Integer getGender() {
+        return gender;
+    }
+
+    /**
+     * 设置性别(0保密 1男 2女)
+     *
+     * @param gender 性别(0保密 1男 2女)
+     */
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 }

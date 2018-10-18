@@ -6,9 +6,11 @@
       WARNING - @mbg.generated
     -->
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
     <result column="AGE" jdbcType="INTEGER" property="age" />
     <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
     <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="PWD" jdbcType="VARCHAR" property="pwd" />
+    <result column="GENDER" jdbcType="INTEGER" property="gender" />
   </resultMap>
 </mapper>

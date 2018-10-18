@@ -1,13 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>Getting Started: Serving Web Content</title> 
+    <title>用户中心</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <p th:text="'==name: ' + ${user.name} + '!'" />
+    <p th:text="'==name: ' + ${user.nickname} + '!'" />
     <p th:text="'==age: ' + ${user.age} + '!'" />
     <p th:text="'==mobile: ' + ${user.mobile} + '!'" />
     <p th:text="'==email: ' + ${user.email} + '!'" />
+    <p th:text="'==pwd: ' + ${user.pwd} + '!'" />
+    <p th:text="'==gender: ' + ${user.gender} + '!'" />
+
 </body>
 </html>

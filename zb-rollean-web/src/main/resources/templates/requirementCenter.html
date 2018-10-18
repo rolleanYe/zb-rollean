@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>需求中心</title>
+
+    <style>
+        .reqlist{
+            background-color: beige;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div th:each="requirement : ${requirementList}">
+    <div class="reqlist">
+        <div>
+            <span th:text="${requirement.subjectDesc}"></span>
+            <span th:text="${requirement.price}"></span>
+        </div>
+        <div>
+            <span>项目类型:
+                <span th:text="${requirement.projectType}"></span>
+            </span>
+            <span>需求类型:
+                <span th:text="${requirement.requirementType}"></span>
+            </span>
+            <span>周期:
+                <span th:text="${requirement.cycle}"></span>
+            </span>
+        </div>
+        <div>
+            <span>需求描述:
+                <span th:text="${requirement.requirementDesc}"></span>
+            </span>
+        </div>
+        <div>
+            <span th:text="${requirement.userId}"></span>
+            <span>发布于:
+                <span th:text="${requirement.createTime}"></span>
+            </span>
+            <span>状态:
+                <span th:text="${requirement.status}"></span>
+            </span>
+            <span>技能要求:
+                <span th:text="${requirement.skills}"></span>
+            </span>
+        </div>
+
+        <div>----------------------------------------------------</div>
+
+
+
+
+
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

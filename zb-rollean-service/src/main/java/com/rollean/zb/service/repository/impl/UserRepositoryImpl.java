@@ -23,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User queryByName(String name) {
         log.info("===========开始============");
         TbUser tbUser = new TbUser();
-        tbUser.setName(name);
+        tbUser.setNickname(name);
         tbUser = tbUserMapper.selectOne(tbUser);
 
         User user = null;
