@@ -23,7 +23,7 @@ public class UserController {
         log.info("查询结果:" + JSON.toJSONString(user));
 
         model.addAttribute("user", user);
-        return "user";
+        return "user/user";
 
     }
 

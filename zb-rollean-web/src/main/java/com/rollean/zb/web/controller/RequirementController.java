@@ -26,7 +26,7 @@ public class RequirementController {
         List<Requirement> requirementList = requirementRepository.querRequirement();
 
         model.addAttribute("requirementList",requirementList);
-        return "requirementCenter";
+        return "requirement/requirementCenter";
     }
 
 

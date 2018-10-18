@@ -15,7 +15,7 @@ public class UserControllerRest {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "zb/queryByName", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryByName", method = RequestMethod.GET)
     public User queryByName(String name) {
         log.info("查询用户开始:" + name );
         return userRepository.queryByName(name);

@@ -14,8 +14,11 @@
 </head>
 <body>
 
-<div th:each="requirement : ${requirementList}">
+<div th:each="requirement,iterStat : ${requirementList}">
     <div class="reqlist">
+
+        <div th:if="${iterStat.first}">---------------------------------------------</div>
+
         <div>
             <span th:text="${requirement.subjectDesc}"></span>
             <span th:text="${requirement.price}"></span>
