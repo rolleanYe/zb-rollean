@@ -6,7 +6,8 @@ package com.rollean.zb.domain.enums;
 public enum ProjectType {
 
     XM("1", "项目"),
-    XS("2","悬赏");
+    XS("2","悬赏"),
+    QT("9","其他");
 
     /** 代码 */
     private final String code;
@@ -26,7 +27,7 @@ public enum ProjectType {
      */
     public static ProjectType getByCode(String code) {
         if (code == null || code.trim().length() == 0) {
-            return null;
+            return ProjectType.QT;
         }
 
         for (ProjectType type : ProjectType.values()) {
@@ -35,7 +36,7 @@ public enum ProjectType {
             }
         }
 
-        return null;
+        return ProjectType.QT;
     }
 
     public String getCode() {

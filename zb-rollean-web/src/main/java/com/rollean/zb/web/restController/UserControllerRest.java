@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
+@RequestMapping(value = "/rest/user")
 public class UserControllerRest {
 
     @Autowired
@@ -20,5 +21,7 @@ public class UserControllerRest {
         log.info("查询用户开始:" + name );
         return userRepository.queryByName(name);
     }
+
+
 
 }

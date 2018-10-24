@@ -8,7 +8,9 @@ public enum RequirementType {
     WEB("1", " WEB应用"),
     APP("2", "移动应用"),
     WEIXIN("3","微信应用"),
-    QIANRUSHI("4","嵌入式应用")
+    QIANRUSHI("4","嵌入式应用"),
+
+    QT("99","其他")
     ;
 
     /** 代码 */
@@ -29,7 +31,7 @@ public enum RequirementType {
      */
     public static RequirementType getByCode(String code) {
         if (code == null || code.trim().length() == 0) {
-            return null;
+            return RequirementType.QT;
         }
 
         for (RequirementType type : RequirementType.values()) {
@@ -38,7 +40,7 @@ public enum RequirementType {
             }
         }
 
-        return null;
+        return RequirementType.QT;
     }
 
     public String getCode() {

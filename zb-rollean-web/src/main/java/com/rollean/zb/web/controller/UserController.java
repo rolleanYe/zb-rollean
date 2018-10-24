@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
+@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
@@ -27,8 +28,13 @@ public class UserController {
 
     }
 
+    @GetMapping(value = "/queryById")
+    public String queryById(String id , Model model){
+        log.info("查询用户开始:" + id );
+        User user =  userRepository.queryById(id);
 
-
-
+        model.addAttribute("user", user);
+        return "user/user";
+    }
 
 }

@@ -1,6 +1,6 @@
 package com.rollean.zb.service.repository;
 
-import com.rollean.zb.domain.Requirement;
+import com.rollean.zb.domain.RequirementVo;
 
 import java.util.List;
 
@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface RequirementRepository {
 
-    List<Requirement> querRequirement();
+    List<RequirementVo> querAllRequirements();
+
+    RequirementVo queryById(Integer id);
 
 }

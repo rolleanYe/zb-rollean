@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>需求中心</title>
+    <title>需求详情</title>
 
     <style>
-        .reqlist{
+        .borderstyle01{
             background-color: beige;
 			width: 500px;
 			border-style:double;
@@ -17,17 +17,11 @@
 </head>
 <body>
 
-<div th:each="requirement,iterStat : ${requirementList}">
-    <div class="reqlist">
-
-        <div th:if="${iterStat.first}">---------------------------------------------</div>
+    <div class="borderstyle01">
 
         <div>
-            <a th:href="@{/requirement/requirementDetail(requirementId=${requirement.id})}" target="_blank">
-                <span th:text="${requirement.subjectDesc}"></span>
-            </a>
+            <span th:text="${requirement.subjectDesc}"></span>
             <span th:text="${requirement.price}"></span>
-
         </div>
         <div>
             <span>项目类型:
@@ -40,11 +34,6 @@
                 <span th:text="${requirement.cycle}"></span>
             </span>
         </div>
-        <!--<div>-->
-            <!--<span>需求描述:-->
-                <!--<span th:text="${requirement.requirementDesc}" th:maxlength=""></span>-->
-            <!--</span>-->
-        <!--</div>-->
         <div>
             <span th:text="${requirement.userId}"></span>
             <span>发布于:
@@ -58,13 +47,38 @@
             </span>
         </div>
 
-        <div>---------------------------------------------</div>
+    </div>
+
+    <br/>
+
+    <div class="borderstyle01">
+        <div>
+            <div>需求描述:</div>
+            <textarea th:text="${requirement.requirementDesc}"></textarea>
+        </div>
+
+         <div>附件:
+            <a href="https://zb.oschina.net/file/get?path=group1/M00/09/ED/wKgBDVvNjTWAQSbHAAL9GovZzng12.jpeg&amp;name=WechatIMG421.jpeg"><span>WechatIMG421.jpeg</span></a>
+        </div>
 
     </div>
-<br/>
-</div>
 
+    <br/>
 
+    <div class="borderstyle01">
+        <div>
+           报名列表
+        </div>
+
+        <div>
+            <span th:each="user : ${requirement.signUpList}">
+                <a th:href="@{/user/queryById(id=${user.id})}" target="_blank">
+                    <span th:text="${user.nickname}"></span>
+                </a> &nbsp;&nbsp;
+            </span>
+        </div>
+
+    </div>
 
 </body>
 </html>

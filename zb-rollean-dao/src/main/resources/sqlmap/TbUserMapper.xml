@@ -13,4 +13,17 @@
     <result column="PWD" jdbcType="VARCHAR" property="pwd" />
     <result column="GENDER" jdbcType="INTEGER" property="gender" />
   </resultMap>
+
+<select id="queryByReqId" resultMap="BaseResultMap">
+
+    select t1.* from tb_user t1,
+              tb_sign_up_list t2,
+              tb_requirement t3
+        where t1.ID = t2.USER_ID
+        and t3.ID = t2.REQUIREMENT_ID
+        AND t3.ID = #{id,jdbcType=INTEGER}
+
+</select>
+
+
 </mapper>

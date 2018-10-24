@@ -28,11 +28,18 @@ public class UserRepositoryImpl implements UserRepository {
 
         User user = null;
         if(tbUser != null){
-            user = UserConvert.convertFundChannel(tbUser);
+            user = UserConvert.convertUser(tbUser);
         }
         log.info("============结束===========");
+
         return user;
     }
 
+    @Override
+    public User queryById(String id) {
 
+        TbUser tbUser =tbUserMapper.selectByPrimaryKey(new Integer(id));
+
+        return UserConvert.convertUser(tbUser);
+    }
 }
