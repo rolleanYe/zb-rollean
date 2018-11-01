@@ -3,15 +3,12 @@ package com.rollean.zb.domain.enums;
 /**
  * Created by rollean.
  */
-public enum RequirementType {
+public enum ReqStatus {
 
-    WEB("1", " WEB应用"),
-    APP("2", "移动应用"),
-    WEIXIN("3","微信应用"),
-    QIANRUSHI("4","嵌入式应用"),
-
-    QT("99","其他")
-    ;
+    BID_ING("1", "投标中"),
+    IMP_ING("2","实施中"),
+    SUCCESS("3","完成"),
+    QT("9","其他");
 
     /** 代码 */
     private final String code;
@@ -21,7 +18,7 @@ public enum RequirementType {
     /**
      * 构造
      */
-    RequirementType(String code, String message) {
+    ReqStatus(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -29,18 +26,18 @@ public enum RequirementType {
     /**
      * 通过代码获取
      */
-    public static RequirementType getByCode(String code) {
+    public static ReqStatus getByCode(String code) {
         if (code == null || code.trim().length() == 0) {
-            return RequirementType.QT;
+            return ReqStatus.QT;
         }
 
-        for (RequirementType type : RequirementType.values()) {
+        for (ReqStatus type : ReqStatus.values()) {
             if (type.getCode().equals(code)) {
                 return type;
             }
         }
 
-        return RequirementType.QT;
+        return ReqStatus.QT;
     }
 
     public String getCode() {

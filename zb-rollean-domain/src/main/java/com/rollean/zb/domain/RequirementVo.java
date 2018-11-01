@@ -10,6 +10,10 @@ public class RequirementVo {
      * 用户ID
      */
     private Integer userId;
+    /**
+     * 用户昵称
+     */
+    private String nickname;
 
     /**
      * 项目类型：项目，悬赏
@@ -55,6 +59,8 @@ public class RequirementVo {
      */
     private Integer status;
 
+    private String statusStr;
+
     /**
      * 附件
      */
@@ -80,6 +86,13 @@ public class RequirementVo {
      */
     private List<User> signUpList;
 
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
 
     public Integer getId() {
         return id;
@@ -95,6 +108,14 @@ public class RequirementVo {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public Integer getProjectType() {

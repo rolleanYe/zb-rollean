@@ -27,7 +27,7 @@
         <javaClientGenerator targetPackage="com.rollean.zb.dal.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
-        <table tableName="tb_sign_up_list">
+        <table tableName="tb_code_table">
             <!--mysql 配置-->
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
             <!--oracle 配置-->

@@ -3,10 +3,11 @@ package com.rollean.zb.domain.enums;
 /**
  * Created by rollean.
  */
-public enum ProjectType {
+public enum DevelopmentLanguage {
 
-    XM("1", "项目"),
-    XS("2","悬赏"),
+    Java("Java", "Java"),
+    IMP_ING("2","实施中"),
+    SUCCESS("3","完成"),
     QT("9","其他");
 
     /** 代码 */
@@ -17,7 +18,7 @@ public enum ProjectType {
     /**
      * 构造
      */
-    ProjectType(String code, String message) {
+    DevelopmentLanguage(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -25,18 +26,18 @@ public enum ProjectType {
     /**
      * 通过代码获取
      */
-    public static ProjectType getByCode(String code) {
+    public static DevelopmentLanguage getByCode(String code) {
         if (code == null || code.trim().length() == 0) {
-            return ProjectType.QT;
+            return DevelopmentLanguage.QT;
         }
 
-        for (ProjectType type : ProjectType.values()) {
+        for (DevelopmentLanguage type : DevelopmentLanguage.values()) {
             if (type.getCode().equals(code)) {
                 return type;
             }
         }
 
-        return ProjectType.QT;
+        return DevelopmentLanguage.QT;
     }
 
     public String getCode() {

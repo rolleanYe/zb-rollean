@@ -22,17 +22,64 @@
 
 
   <resultMap id="RequirementResultMap" type="com.rollean.zb.dal.model.Requirement">
-    <result column="SUBJECT_DESC" jdbcType="VARCHAR" property="subjectDesc" />
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
     <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+    <result column="PROJECT_TYPE" jdbcType="INTEGER" property="projectType" />
+    <result column="SUBJECT_DESC" jdbcType="VARCHAR" property="subjectDesc" />
+    <result column="REQUIREMENT_TYPE" jdbcType="INTEGER" property="requirementType" />
+    <result column="REQUIREMENT_DESC" jdbcType="VARCHAR" property="requirementDesc" />
+    <result column="SKILLS" jdbcType="VARCHAR" property="skills" />
+    <result column="PRICE" jdbcType="VARCHAR" property="price" />
+    <result column="CYCLE" jdbcType="VARCHAR" property="cycle" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="ATTACHMENT" jdbcType="VARCHAR" property="attachment" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
   <select id="queryRequirementDtl" resultMap="RequirementResultMap">
-    select t1.SUBJECT_DESC,t2.NICKNAME from tb_requirement t1
+    select t1.*,t2.NICKNAME
+    from tb_requirement t1
       left join tb_user t2
         on  t1.USER_ID = t2.ID
-        where t1.ID = #{id,jdbcType=INTEGER}
+        where 1=1
+    <if test="userId != null">
+      AND t1.ID = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="requirementId != null">
+      AND t1.ID = #{requirementId,jdbcType=INTEGER}
+    </if>
+
+    <if test="status != null">
+      AND t1.STATUS = #{status,jdbcType=INTEGER}
+    </if>
   </select>
 
+
+  <select id="requirementSearch" resultMap="RequirementResultMap">
+    select t1.*,t2.NICKNAME
+    from tb_requirement t1
+    left join tb_user t2
+    on  t1.USER_ID = t2.ID
+    where 1=1
+    <if test="searchText != null">
+      AND t1.REQUIREMENT_DESC like concat('%',#{searchText,jdbcType=VARCHAR},'%')
+    </if>
+
+    <if test="projectTypeFilter != null and projectTypeFilter!='0'.toString() ">
+      AND t1.PROJECT_TYPE = #{projectTypeFilter}
+    </if>
+
+    <if test="requirementTypeFilter != null and requirementTypeFilter!='0'.toString()">
+      AND t1.REQUIREMENT_TYPE IN (
+      <foreach collection="requirementTypeFilter.split(',')" item="item" index="index" separator=",">
+        #{item}
+      </foreach>
+      )
+    </if>
+
+  </select>
 
 
 </mapper>

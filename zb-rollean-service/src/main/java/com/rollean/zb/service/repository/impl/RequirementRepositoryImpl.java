@@ -2,6 +2,7 @@ package com.rollean.zb.service.repository.impl;
 
 import com.rollean.zb.dal.mapper.TbRequirementMapper;
 import com.rollean.zb.dal.mapper.TbUserMapper;
+import com.rollean.zb.dal.model.Requirement;
 import com.rollean.zb.dal.model.TbRequirement;
 import com.rollean.zb.dal.model.TbUser;
 import com.rollean.zb.domain.RequirementVo;
@@ -29,13 +30,22 @@ public class RequirementRepositoryImpl implements RequirementRepository {
 
     @Override
     public List<RequirementVo> querAllRequirements() {
-        List<TbRequirement> tbRequirementList = tbRequirementMapper.selectAll();
-        return RequirementConvert.convertRequirementList(tbRequirementList);
+        List<Requirement> requirementList = tbRequirementMapper.queryRequirementDtl(null,null,new Integer("1"));
+        return RequirementConvert.convertRequirementList(requirementList);
+    }
+
+
+    @Override
+    public List<RequirementVo> requirementSearch(String searchText,String projectTypeFilter,String requirementTypeFilter) {
+        List<Requirement> requirementList = tbRequirementMapper.requirementSearch( searchText, projectTypeFilter, requirementTypeFilter);
+        return RequirementConvert.convertRequirementList(requirementList);
     }
 
     @Override
     public RequirementVo queryById(Integer id) {
-        TbRequirement tbRequirement = tbRequirementMapper.selectByPrimaryKey(id);
+        List<Requirement> requirementList = tbRequirementMapper.queryRequirementDtl(null,id,null);
+        Requirement tbRequirement = requirementList.get(0);
+
         List<TbUser> tbUserList = tbUserMapper.queryByReqId(tbRequirement.getId());
         TbUser tbUser = tbUserMapper.selectByPrimaryKey(tbRequirement.getUserId());
 

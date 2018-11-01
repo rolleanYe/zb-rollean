@@ -1,20 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+<head th:replace="common/common_header :: common_header(~{::title},~{},~{::style},~{})">
     <title>需求详情</title>
 
     <style>
         .borderstyle01{
             background-color: beige;
-			width: 500px;
-			border-style:double;
-			
+            width: 500px;
+            border-style:double;
+
         }
 
     </style>
 
 </head>
+
 <body>
 
     <div class="borderstyle01">

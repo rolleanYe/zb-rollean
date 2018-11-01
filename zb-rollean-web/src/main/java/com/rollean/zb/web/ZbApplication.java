@@ -14,6 +14,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @ComponentScan("com.rollean.zb")
 @MapperScan("com.rollean.zb.dal.mapper")
 public class ZbApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(ZbApplication.class, args);
     }

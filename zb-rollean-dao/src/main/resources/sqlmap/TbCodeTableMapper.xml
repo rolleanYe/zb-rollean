@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rollean.zb.dal.mapper.TbCodeTableMapper">
+  <resultMap id="BaseResultMap" type="com.rollean.zb.dal.model.TbCodeTable">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="CODE_ID" jdbcType="INTEGER" property="codeId" />
+    <result column="CODE_KEY" jdbcType="VARCHAR" property="codeKey" />
+    <result column="ATTR_NAME" jdbcType="VARCHAR" property="attrName" />
+    <result column="ATTR_KEY" jdbcType="VARCHAR" property="attrKey" />
+    <result column="ATTR_VALUE" jdbcType="VARCHAR" property="attrValue" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+  </resultMap>
+</mapper>

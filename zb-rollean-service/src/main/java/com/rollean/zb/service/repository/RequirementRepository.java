@@ -11,6 +11,8 @@ public interface RequirementRepository {
 
     List<RequirementVo> querAllRequirements();
 
+    List<RequirementVo> requirementSearch(String searchText,String projectTypeFilter,String requirementTypeFilter);
+
     RequirementVo queryById(Integer id);
 
 }

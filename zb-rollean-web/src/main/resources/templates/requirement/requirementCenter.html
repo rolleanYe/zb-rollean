@@ -1,70 +1,246 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head th:replace="common/common_header :: common_header(~{::title},~{},~{::style},~{})">
     <title>需求中心</title>
 
+
     <style>
-        .reqlist{
-            background-color: beige;
-			width: 500px;
-			border-style:double;
-			
+
+        .requirementTitle {
+            color: black;
+            font-size: 20px;
+            font-weight: 500;
         }
 
+        .money {
+            color: red;
+            font-size: 15px;
+            font-weight: 500;
+        }
     </style>
+
 
 </head>
 <body>
 
-<div th:each="requirement,iterStat : ${requirementList}">
-    <div class="reqlist">
+<nav th:replace="common/common_header :: menu_zb"></nav>
 
-        <div th:if="${iterStat.first}">---------------------------------------------</div>
+<div class="container">
 
-        <div>
-            <a th:href="@{/requirement/requirementDetail(requirementId=${requirement.id})}" target="_blank">
-                <span th:text="${requirement.subjectDesc}"></span>
-            </a>
-            <span th:text="${requirement.price}"></span>
+    <div class="col-md-8 " >
+        <div class="panel panel-default" style="border: 0;">
+            <form class="bs-example bs-example-form" role="form" th:action="@{/requirement/requirementSearch}">
+                <div class="input-group">
+                    <input type="text" class="form-control" th:value="${searchText}" name="searchText" placeholder="输入关键字词, 开始检索您感兴趣的项目，例如：网站、微信">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" id="querySubmit">
+                            查询
+                        </button>
+                    </span>
+                </div>
 
+                <input type="hidden" id="projectTypeFilter" name="projectTypeFilter" th:value="${projectTypeFilter}"/>
+                <input type="hidden" id="requirementTypeFilter" name="requirementTypeFilter" th:value="${requirementTypeFilter}"/>
+
+            </form>
         </div>
-        <div>
-            <span>项目类型:
+    </div>
+    <div class="col-md-4 " >
+        <div class="panel panel-default" style="border: 0;">
+            <form class="bs-example bs-example-form" role="form">
+
+                <button class="btn btn-primary" type="button">
+                    免费发布需求
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-8 " >
+
+        <div class="panel panel-default" style="margin-top: 10px;" th:if="${#lists.isEmpty(requirementList)}">
+            <span style="color: red; ">无符合条件记录...</span>
+        </div>
+        <div class="panel panel-default" style="margin-top: 10px;" th:each="requirement,iterStat : ${requirementList}">
+            <div style="margin-bottom:5px;margin-top: 5px;">
+                <a class="requirementTitle" th:href="@{/requirement/requirementDetail(requirementId=${requirement.id})}" target="_blank">
+                    <span th:text="${requirement.subjectDesc}"></span>
+                </a>
+                <span style="float: right;margin-right: 10px" class="money" th:text="￥+${requirement.price}"></span>
+            </div>
+            <div style="margin:5px;">
+            <span class="label label-info">项目类型:
                 <span th:text="${requirement.projectTypeStr}"></span>
             </span>
-            <span>需求类型:
+                &nbsp;&nbsp;
+                <span class="label label-info">需求类型:
                 <span th:text="${requirement.requirementTypeStr}"></span>
             </span>
-            <span>周期:
+                &nbsp;&nbsp;
+                <span class="label label-info">周期:
                 <span th:text="${requirement.cycle}"></span>
             </span>
-        </div>
-        <!--<div>-->
-            <!--<span>需求描述:-->
-                <!--<span th:text="${requirement.requirementDesc}" th:maxlength=""></span>-->
-            <!--</span>-->
-        <!--</div>-->
-        <div>
-            <span th:text="${requirement.userId}"></span>
-            <span>发布于:
-                <span th:text="${requirement.createTime}"></span>
-            </span>
-            <span>状态:
-                <span th:text="${requirement.status}"></span>
-            </span>
-            <span>技能要求:
-                <span th:text="${requirement.skills}"></span>
-            </span>
-        </div>
+            </div>
+            <div class="row" style="margin-top:10px;margin-bottom: 5px;">
+                <div class="col-md-2">
+                    <span style="display: block; width: 100%; text-overflow: ellipsis; overflow:hidden; white-space:nowrap">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <a data-toggle="tooltip" th:title="${requirement.nickname}" th:href="@{/user/queryById(id=${requirement.userId})}" target="_blank">
+                            <span th:text="${requirement.nickname}"></span>
+                        </a>
+                    </span>
+                </div>
+                <div class="col-md-3">
+                    <span>发布于:
+                    <span th:text="${#dates.format(requirement.createTime,'yyyy-MM-dd')}"></span>
+                    </span>
+                </div>
+                <div class="col-md-2">
+                    <span>状态:
+                    <span th:text="${requirement.statusStr}"></span>
+                    </span>
+                </div>
+                <div class="col-md-5">
+                    <span style="display:block; width:80%;text-overflow: ellipsis; overflow:hidden; white-space:nowrap" >技能要求:
+                    <span data-toggle="tooltip" th:title="${requirement.skills}" th:text="${requirement.skills}"></span>
+                    </span>
 
-        <div>---------------------------------------------</div>
+                </div>
+            </div>
+        </div>
 
     </div>
-<br/>
+
+
+    <div class="col-md-4">
+
+        <div class="panel panel-default" style="margin-top: 10px;">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    筛选您期望的项目
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div><h5>项目类型</h5></div>
+                <div>
+
+                    <label style="width: 20%; margin:2px; text-align: center" class="btn btn-default" th:each="projectTypeTmp : ${projectTypeMap}">
+
+                        <input th:name="projectTypeFilter" type="radio" th:value="${projectTypeTmp.key}" th:text="${' ' + projectTypeTmp.value}" />
+
+                    </label>
+
+                </div>
+
+                <div><h5>需求类型</h5></div>
+                <div>
+
+                    <label style="width: 30%; margin:2px; text-align: left" class="btn btn-default" th:each="requirementTypeTmp : ${requirementTypeMap}">
+                        <input name="requirementTypeFilter" type="checkbox" th:value="${requirementTypeTmp.key}" th:text="${' ' + requirementTypeTmp.value}">
+                    </label>
+
+                </div>
+
+                <div style="text-align: center;">
+                    <button id="queryFilter" class="btn btn-primary" type="button">
+                        搜索
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 
-
 </body>
+
+<script type="text/javascript" th:inline="javascript">
+
+    jQuery(document).ready(function () {
+
+        //初始化项目类型
+        var projectTypeFilterInit = jQuery("#projectTypeFilter").val();
+        jQuery("input:radio[name='projectTypeFilter']").each(
+            function(i,val){
+                if(val.value == projectTypeFilterInit){
+                    jQuery("input:radio[name='projectTypeFilter']").eq(i).attr("checked",true);
+                }
+            }
+        );
+
+        //初始化需求类型
+        var requirementTypeFilterInit = jQuery("#requirementTypeFilter").val().split(',');
+        jQuery.each(requirementTypeFilterInit, function(key,valueTMP){
+                jQuery("input:checkbox[name='requirementTypeFilter'][value='"+ valueTMP+"']").attr("checked",true);
+            }
+        );
+
+        jQuery("input:checkbox[name='requirementTypeFilter']").click(
+                function(){
+                    if(this.checked){
+                        if(this.value == '0'){
+                            jQuery("input:checkbox[name='requirementTypeFilter']:checked").each(
+                                function(){
+                                    if(jQuery(this).val() != '0'){
+                                        jQuery(this).attr("checked",false);
+                                    }
+                                }
+                            )
+                        }else {
+                            jQuery("input:checkbox[name='requirementTypeFilter']:checked").each(
+                                function(){
+                                    if(jQuery(this).val() == '0'){
+                                        jQuery(this).attr("checked",false);
+                                    }
+                                }
+                            )
+                        }
+                    }
+
+                }
+        );
+
+        jQuery("#querySubmit").click(
+            function () {
+                setFilterParams();
+                jQuery("form:first").submit();
+            }
+        );
+
+        jQuery("#queryFilter").click(
+            function () {
+                setFilterParams();
+                jQuery("form:first").submit();
+            }
+        );
+
+
+    });
+
+
+    function setFilterParams() {
+        var projectTypeFilter = jQuery("input:radio[name='projectTypeFilter']:checked").val().trim();
+
+        jQuery("#projectTypeFilter").val(projectTypeFilter)
+
+        var arr = new Array();
+        jQuery("input:checkbox[name='requirementTypeFilter']:checked").each(
+                function(i){
+                    arr[i] = jQuery(this).val();
+                }
+        )
+        var vals = arr.join(",");
+
+        jQuery("#requirementTypeFilter").val(vals)
+    }
+
+
+</script>
+
+
 </html>
