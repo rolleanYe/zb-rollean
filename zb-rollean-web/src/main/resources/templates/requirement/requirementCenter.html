@@ -79,7 +79,8 @@
             </span>
                 &nbsp;&nbsp;
                 <span class="label label-info">周期:
-                <span th:text="${requirement.cycle}"></span>
+                <span th:text="${#strings.replace(#strings.replace(requirement.cycle,'D','天'),'M','月')}"></span>
+
             </span>
             </div>
             <div class="row" style="margin-top:10px;margin-bottom: 5px;">

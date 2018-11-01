@@ -5,7 +5,7 @@ package com.rollean.zb.domain.enums;
  */
 public enum ReqStatus {
 
-    BID_ING("1", "投标中"),
+    BID_ING("1", "竞标中"),
     IMP_ING("2","实施中"),
     SUCCESS("3","完成"),
     QT("9","其他");

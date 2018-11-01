@@ -6,11 +6,23 @@
     <title>需求详情</title>
 
     <style>
-        .borderstyle01{
-            background-color: beige;
-            width: 500px;
-            border-style:double;
 
+        .requirementTitle {
+            color: black;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .money {
+            color: red;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .reqStat {
+            color: black;
+            font-size: 15px;
+            font-weight: 500;
         }
 
     </style>
@@ -19,68 +31,122 @@
 
 <body>
 
-    <div class="borderstyle01">
+<nav th:replace="common/common_header :: menu_zb"></nav>
 
-        <div>
-            <span th:text="${requirement.subjectDesc}"></span>
-            <span th:text="${requirement.price}"></span>
+    <div class="container">
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <span class="requirementTitle" th:text="${requirement.subjectDesc}"></span>
+                    <span style="float: right;margin-right: 10px" class="money" th:text="￥+${requirement.price}"></span>
+                </div>
+
+                <div style="padding: 10px;">
+                    <div>
+                        <span class="label label-info">项目类型:
+                            <span th:text="${requirement.projectTypeStr}"></span>
+                        </span>
+                            &nbsp;&nbsp;
+                            <span class="label label-info">需求类型:
+                            <span th:text="${requirement.requirementTypeStr}"></span>
+                        </span>
+                    </div>
+
+                    <div class="row" style="margin-top:10px;margin-bottom: 5px;margin-right: 10px;">
+
+                        <div class="col-md-2" style="padding-right: 0px; width: 15%">
+                            <span>发布于:
+                                <span th:text="${#dates.format(requirement.createTime,'yyyy-MM-dd')}"></span>
+                            </span>
+                        </div>
+                        <div class="col-md-2" style="padding-right: 0px; padding-left: 0px; width: 7%">
+                            <span>周期:
+                                <span th:text="${#strings.replace(#strings.replace(requirement.cycle,'D','天'),'M','月')}"></span>
+                            </span>
+                        </div>
+                        <div class="col-md-2" style="padding-left: 0px; width: 13%">
+                            <span>参与人数:
+                                <span th:if="${#lists.isEmpty(requirement.signUpList) == false}" th:text="${ #lists.size(requirement.signUpList)}"/>
+                                <span th:if="${#lists.isEmpty(requirement.signUpList) == true}" th:text="0"/>
+                            </span>
+                        </div>
+                        <div class="col-md-6" style="float: right">
+                            <span style="float: right;margin-right: 10px" class="reqStat" th:text="${requirement.statusStr}"></span>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:10px;margin-bottom: 5px;">
+                        <div class="col-md-6">
+                            <span style="display:block; width:80%;text-overflow: ellipsis; overflow:hidden; white-space:nowrap" >技能要求:
+                                <span data-toggle="tooltip" th:title="${requirement.skills}" th:text="${requirement.skills}"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:10px;margin-bottom: 5px; margin-right: 5px;">
+                        <div class="col-md-6">
+                            <span style="display: block; width: 100%; text-overflow: ellipsis; overflow:hidden; white-space:nowrap;padding: 6px 0px;">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <a data-toggle="tooltip" th:title="${requirement.nickname}" th:href="@{/user/queryById(id=${requirement.userId})}" target="_blank">
+                                    <span th:text="${requirement.nickname}"></span>
+                                </a>
+                            </span>
+                        </div>
+
+                        <div class="col-md-6" >
+                            <button style="float: right; margin-right: 10px" class="btn btn-primary" type="button">
+                                竞标
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div>
-            <span>项目类型:
-                <span th:text="${requirement.projectTypeStr}"></span>
-            </span>
-            <span>需求类型:
-                <span th:text="${requirement.requirementTypeStr}"></span>
-            </span>
-            <span>周期:
-                <span th:text="${requirement.cycle}"></span>
-            </span>
+
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div>需求描述:</div>
+                </div>
+                <div style="min-height: 200px; padding: 10px">
+                    <span th:text="${requirement.requirementDesc}"></span>
+                </div>
+
+                <div class="panel-heading">
+                    <div>附件:</div>
+                </div>
+                <div style=" padding: 10px">
+                    <a href="https://zb.oschina.net/file/get?path=group1/M00/09/ED/wKgBDVvNjTWAQSbHAAL9GovZzng12.jpeg&amp;name=WechatIMG421.jpeg">
+                        <span>WechatIMG421.jpeg</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    报名列表
+                </div>
+                <div style="min-height: 180px; padding: 10px;">
+                    <span th:each="user : ${requirement.signUpList}">
+                        <a th:href="@{/user/queryById(id=${user.id})}" target="_blank">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span th:text="${user.nickname}"></span>
+                        </a> &nbsp;&nbsp;
+                    </span>
+                </div>
+            </div>
         </div>
-        <div>
-            <span th:text="${requirement.userId}"></span>
-            <span>发布于:
-                <span th:text="${requirement.createTime}"></span>
-            </span>
-            <span>状态:
-                <span th:text="${requirement.status}"></span>
-            </span>
-            <span>技能要求:
-                <span th:text="${requirement.skills}"></span>
-            </span>
+        <div class="col-md-4">
+            <div th:replace="common/content :: ProcessGuidance"></div>
+        </div>
+
+        <div class="col-md-4">
+            <div th:replace="common/content :: RaiseWinningRate"></div>
         </div>
 
     </div>
-
-    <br/>
-
-    <div class="borderstyle01">
-        <div>
-            <div>需求描述:</div>
-            <textarea th:text="${requirement.requirementDesc}"></textarea>
-        </div>
-
-         <div>附件:
-            <a href="https://zb.oschina.net/file/get?path=group1/M00/09/ED/wKgBDVvNjTWAQSbHAAL9GovZzng12.jpeg&amp;name=WechatIMG421.jpeg"><span>WechatIMG421.jpeg</span></a>
-        </div>
-
-    </div>
-
-    <br/>
-
-    <div class="borderstyle01">
-        <div>
-           报名列表
-        </div>
-
-        <div>
-            <span th:each="user : ${requirement.signUpList}">
-                <a th:href="@{/user/queryById(id=${user.id})}" target="_blank">
-                    <span th:text="${user.nickname}"></span>
-                </a> &nbsp;&nbsp;
-            </span>
-        </div>
-
-    </div>
-
 </body>
 </html>
