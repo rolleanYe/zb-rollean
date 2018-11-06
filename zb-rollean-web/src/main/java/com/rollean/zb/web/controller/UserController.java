@@ -28,13 +28,12 @@ public class UserController {
 
     }
 
-    @GetMapping(value = "/queryById")
-    public String queryById(String id , Model model){
-        log.info("查询用户开始:" + id );
-        User user =  userRepository.queryById(id);
+    @GetMapping(value = "/userCenter")
+    public String userCenter(Model model){
 
-        model.addAttribute("user", user);
-        return "user/user";
+        return "user/userBasic";
     }
+
+
 
 }

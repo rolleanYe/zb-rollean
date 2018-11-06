@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header :: common_header(~{::title},~{},~{::style},~{})">
+    <title>用户中心</title>
+
+    <style>
+        .title_userCenter{
+            font-size: 24px;
+            color: #151E1E;
+            font-weight: bold;
+        }
+
+        .base_info{
+            margin: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav th:replace="common/common_header :: menu_zb"></nav>
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="title_userCenter">个人中心</div>
+        <div style="text-align: right">
+            <a href="#" target="_blank">实名认证</a>
+            手机：<span style="color:green;font-weight: bold">已经认证</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div th:replace="common/content :: userCenterMenu"></div>
+
+
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6" style="font-weight: bold">基本信息</div>
+                        <div class="col-md-6" style="text-align: right"><a>编辑</a></div>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding-left: 10px;">
+                    <div class="base_info">昵称:</div>
+                    <div class="base_info">性别:</div>
+                    <div class="base_info">所在地:</div>
+                    <div class="base_info">工作年限:</div>
+                    <div class="base_info">就职公司:</div>
+                    <div class="base_info">QQ:</div>
+                    <div class="base_info">微信:</div>
+                    <div class="base_info">个人介绍:</div>
+                    <div style="margin-left: 35px;">nihao adfasdf asdfafa asfafasf asfasfa asfasf</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
