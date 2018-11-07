@@ -26,4 +26,16 @@
 </select>
 
 
+    <select id="loginQuery" resultType="com.rollean.zb.dal.model.TbUser">
+
+        SELECT * from tb_user
+        where pwd = #{userPassword}
+        and (
+        mobile = #{loginName}
+        or
+        email = #{loginName}
+        )
+
+    </select>
+
 </mapper>

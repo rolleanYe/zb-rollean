@@ -1,5 +1,6 @@
 package com.rollean.zb.web.controller;
 
+import com.rollean.zb.common.annotation.NoLogin;
 import com.rollean.zb.domain.BasicContext;
 import com.rollean.zb.domain.RequirementVo;
 import com.rollean.zb.service.repository.RequirementRepository;
@@ -24,7 +25,8 @@ public class RequirementController {
     @Autowired
     private RequirementRepository requirementRepository;
 
-    @GetMapping("/requirementList")
+    @NoLogin
+    @RequestMapping("/requirementList")
     public String queryAll(Model model){
 
         List<RequirementVo> requirementList = requirementRepository.querAllRequirements();
@@ -48,7 +50,7 @@ public class RequirementController {
         return "requirement/requirementDetail";
     }
 
-
+    @NoLogin
     @GetMapping("/requirementSearch")
     public String requirementSearch(String searchText, String projectTypeFilter, String requirementTypeFilter,  Model model){
 

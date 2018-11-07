@@ -27,8 +27,6 @@ public class InitApplicationRunner implements ApplicationRunner{
         initDateService.initDate();
 
 
-        System.out.println(BasicContext.skillList.size());
-
         log.info("==============初始化数据完成==============");
     }
 }

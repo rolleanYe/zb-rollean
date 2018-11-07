@@ -7,6 +7,11 @@
         form>div{
             margin: 10px;
         }
+
+        .formError{
+            color: #bc211f;
+        }
+
     </style>
 
 </head>
@@ -21,12 +26,12 @@
                     </div>
 
                     <div class="panel-body" style="text-align: center;">
-                        <form role="form">
+                        <form role="form" id="loginForm" th:action="@{/home/login}">
                             <div>
-                                <input type="text" class="form-control" id="userName" placeholder="邮箱或手机号">
+                                <input type="text" class="form-control" id="userName" name="userName" placeholder="邮箱或手机号" >
                             </div>
                             <div>
-                                <input type="password" class="form-control" id="userPassword" placeholder="请输入密码">
+                                <input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="请输入密码" >
                             </div>
 
                             <div>
@@ -43,24 +48,62 @@
 </body>
 
 <script type="text/javascript" th:inline="javascript">
+
+
+    $.validator.addMethod( "mobileOrEmail", function( valueTmp  ) {
+        return  valueTmp.match( /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/ ) || valueTmp.match( /^1[34578]\d{9}$/ );
+    }, "请输入正确的手机号或邮箱" );
+
     jQuery(document).ready(function () {
+
+
+        $("#loginForm").validate(
+            {
+
+                rules:{
+                    userName:{
+                        required:true,
+                        mobileOrEmail:true
+                    },
+
+                    userPassword:{
+                        required:true,
+                        rangelength:[6,12]
+                    }
+
+                },
+
+                messages:{
+                    userName:{
+                        required:"请输入手机或邮箱",
+                    },
+                    userPassword:{
+                        required:"请输入密码",
+                        rangelength:"最小长度6,最大长度12!",
+                    }
+                },
+
+                onfocusout:true,
+
+                errorClass:"formError"
+
+            }
+        );
+
 
         $("#loginSubmit").click(
             function(){
-                alert('登陆请求');
+//                alert('登陆请求');
+                $("#loginForm").submit();
             }
 
         );
 
-
         $("#regSubmit").click(
-                function(){
-                    alert('注册请求');
-                }
-
+            function(){
+                alert('注册请求');
+            }
         );
-
-
 
     })
 

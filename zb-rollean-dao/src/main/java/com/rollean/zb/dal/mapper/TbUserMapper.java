@@ -11,4 +11,6 @@ public interface TbUserMapper extends Mapper<TbUser>, MySqlMapper<TbUser> {
 
     List<TbUser> queryByReqId(@Param("id") Integer id );
 
+    TbUser loginQuery(@Param("loginName") String loginName, @Param("userPassword") String userPassword);
+
 }

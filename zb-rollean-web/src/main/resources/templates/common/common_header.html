@@ -5,14 +5,12 @@
 
     <title th:replace="${title}">众包平台</title>
 
-    <!--<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" >-->
-
     <script th:src="@{/scripts/jquery.min.js}" type="text/javascript"></script>
+    <script th:src="@{/scripts/jquery.validate.min.js}" type="text/javascript"></script>
     <script th:src="@{/scripts/bootstrap.min.js}" type="text/javascript"></script>
 
+    <!--<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" >-->
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
-    <!--<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 
     <th:block th:replace="${links}" />
     <th:block th:replace="${styles}" />
@@ -30,19 +28,23 @@
                 <li class="active"><a th:href="@{/requirement/requirementList}">项目大厅</a></li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul th:if="${session.loginUser != null}" class="nav navbar-nav navbar-right">
                 <li><a href="#">工作台</a></li>
                 <li><a th:href="@{/user/userCenter}">个人中心</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-user"></span>rolleanYe
+                        <span class="glyphicon glyphicon-user"></span>
+                        <label th:text="${session.loginUser.nickname}"></label>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>rolleanYe</a></li>
                         <li><a href="#">开通企业帐户</a></li>
-                        <li><a href="#">退出</a></li>
+                        <li><a th:href="@{/home/logout}">退出</a></li>
                     </ul>
                 </li>
+            </ul>
+
+            <ul th:if="${session.loginUser == null}" class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/home/index}">登陆</a></li>
             </ul>
 
         </div>

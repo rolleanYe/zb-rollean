@@ -42,4 +42,10 @@ public class UserRepositoryImpl implements UserRepository {
 
         return UserConvert.convertUser(tbUser);
     }
+
+    @Override
+    public User loginQuery(String userName, String userPassword) {
+        TbUser tbUser = tbUserMapper.loginQuery(userName,userPassword);
+        return UserConvert.convertUser(tbUser);
+    }
 }

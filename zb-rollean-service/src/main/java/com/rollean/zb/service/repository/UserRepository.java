@@ -9,6 +9,8 @@ public interface UserRepository {
 
     User queryByName(String name);
 
-
     User queryById(String id);
+
+    User loginQuery(String userName, String userPassword);
+
 }
