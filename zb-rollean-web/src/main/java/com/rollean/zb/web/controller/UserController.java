@@ -35,23 +35,40 @@ public class UserController {
     public String userCenter(Model model, HttpSession httpSession){
 
         User currUser = (User) httpSession.getAttribute("loginUser");
-
         User user = userRepository.queryById(currUser.getId().toString());
-        model.addAttribute("user",currUser);
+
+        model.addAttribute("user",user);
 
         return "user/userBasic";
     }
 
 
-    @NoLogin
-    @RequestMapping(value = "/userTest")
-    public String userTest(Model model){
-        User user = userRepository.queryByName("叶俊");
+    @RequestMapping(value = "/userInfo")
+    public String userInfo(Model model, HttpSession httpSession){
+
+        User currUser = (User) httpSession.getAttribute("loginUser");
+        User user = userRepository.queryById(currUser.getId().toString());
+
         model.addAttribute("user",user);
 
         return "user/userBasic :: div001";
 
     }
+
+
+    @RequestMapping(value = "/userEdit")
+    public String userEdit(Model model, HttpSession httpSession){
+
+        User currUser = (User) httpSession.getAttribute("loginUser");
+        User user = userRepository.queryById(currUser.getId().toString());
+
+        model.addAttribute("user",user);
+
+        return "user/user_content :: userEdit";
+
+    }
+
+
 
 
 }

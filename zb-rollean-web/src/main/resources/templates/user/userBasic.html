@@ -39,19 +39,14 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-md-6" style="font-weight: bold">基本信息</div>
-                            <div class="col-md-6" style="text-align: right"><a>编辑</a></div>
+                            <div class="col-md-6" style="text-align: right" id="userEdit"><a>编辑</a></div>
                         </div>
                     </div>
                     <div class="panel-body" style="padding-left: 10px;">
                         <div class="base_info">昵称: <span th:text="${user.nickname}"></span></div>
-                        <div class="base_info">性别: <span th:text="${user.age}"></span></div>
-                        <div class="base_info">所在地: <span th:text="${user.mobile}"></span></div>
-                        <div class="base_info">工作年限: <span th:text="${user.email}"></span></div>
-                        <div class="base_info">就职公司: </div>
-                        <div class="base_info">QQ:</div>
-                        <div class="base_info">微信:</div>
-                        <div class="base_info">个人介绍:</div>
-                        <div style="margin-left: 35px;">nihao adfasdf asdfafa asfafasf asfasfa asfasf</div>
+                        <div class="base_info">年龄: <span th:text="${user.age}"></span></div>
+                        <div class="base_info">手机: <span th:text="${user.mobile}"></span></div>
+                        <div class="base_info">邮箱: <span th:text="${user.email}"></span></div>
                     </div>
                 </div>
             </div>
@@ -67,18 +62,39 @@
         $("#userBasicIc").click(
             function(){
                 $.ajax({
-                    url: "/user/userTest",
-                    date: {id : 111},
+                    url: "/user/userInfo",
                     success: function (result) {
                         $("#div001").html(result);
+                        $("#userEdit").click(
+                            function () {
+                                userEdit();
+                            }
+                        );
                     }
                 })
 
             }
         );
 
-    });
 
+        $("#userEdit").click(
+            function(){
+                userEdit();
+            }
+        );
+
+
+        function userEdit() {
+            $.ajax({
+                url: "/user/userEdit",
+                success: function (result) {
+                    $("#div001").html(result);
+                }
+            })
+        }
+
+
+    });
 
 
 </script>

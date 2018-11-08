@@ -5,13 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <p th:text="'==>name: ' + ${user.nickname} + '!'" />
-    <p th:text="'==>age: ' + ${user.age} + '!'" />
-    <p th:text="'==mobile: ' + ${user.mobile} + '!'" />
-    <p th:text="'==email: ' + ${user.email} + '!'" />
-    <p th:text="'==pwd: ' + ${user.pwd} + '!'" />
-    <p th:text="'==gender: ' + ${user.gender} + '!'" />
-
 
     <div th:fragment="userEdit">
         <div class="panel panel-default">
@@ -30,15 +23,15 @@
                         <input th:value="${user.age}" type="text" class="form-control" id="age" name="age" placeholder="请输入年龄" >
                     </div>
                     <div class="base_info">手机:
-                        <span th:value="${user.mobile}" type="text" class="form-control" id="mobile" name="mobile" > </span>
+                        <span th:text="${user.mobile}" type="text" class="form-control" id="mobile" name="mobile" th:disabled="true"> </span>
                     </div>
                     <div class="base_info">邮箱:
-                        <span th:value="${user.email}" type="text" class="form-control" id="email" name="email" ></span>
+                        <span th:text="${user.email}" type="text" class="form-control" id="email" name="email" th:disabled="true"></span>
                     </div>
-
+                    <div class="base_info">
+                        <button type="button" id="regSubmit" class="btn btn-primary">保存</button>
+                    </div>
                 </form>
-
-
 
             </div>
         </div>
