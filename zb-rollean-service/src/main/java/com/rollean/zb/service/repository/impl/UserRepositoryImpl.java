@@ -59,4 +59,10 @@ public class UserRepositoryImpl implements UserRepository {
         TbUser tbUser = UserConvert.convertTbUser(user);
         tbUserMapper.insert(tbUser);
     }
+
+    @Override
+    public void updateUser(User user) {
+        TbUser tbUser = UserConvert.convertTbUser(user);
+        tbUserMapper.updateByPrimaryKeySelective(tbUser);
+    }
 }

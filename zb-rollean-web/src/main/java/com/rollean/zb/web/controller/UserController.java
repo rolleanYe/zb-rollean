@@ -5,6 +5,7 @@ import com.rollean.zb.common.annotation.NoLogin;
 import com.rollean.zb.domain.User;
 import com.rollean.zb.service.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,6 +66,38 @@ public class UserController {
         model.addAttribute("user",user);
 
         return "user/user_content :: userEdit";
+
+    }
+
+    @RequestMapping(value = "/editSave")
+    public String editSave(String nickname,String age,String userId, Model model, HttpSession httpSession){
+
+        log.info("开始修改用户信息: "+ nickname + "~" + age +"~"+ userId);
+        User user = userRepository.queryById(userId);
+        if(user.getNickname().equals(nickname) && user.getAge()!=null && user.getAge().equals(age)){
+            return "user/userBasic :: div001";
+        }
+
+        if(!user.getNickname().equals(nickname)){
+            User userTmp = userRepository.queryByName(nickname);
+            if(userTmp != null){
+                System.out.println("当前昵称已经被其他用户使用!!!");
+                return "user/userBasic :: div001";
+            }
+        }
+
+        User userUpd = new User();
+        userUpd.setId(new Integer(userId));
+        userUpd.setNickname(nickname);
+        userUpd.setAge(new Integer(age));
+        userRepository.updateUser(userUpd);
+
+        User currUser = userRepository.queryById(userId);
+        httpSession.setAttribute("loginUser",currUser);
+
+        model.addAttribute("user",currUser);
+
+        return "user/userBasic :: div001";
 
     }
 

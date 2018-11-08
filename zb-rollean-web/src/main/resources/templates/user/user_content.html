@@ -29,8 +29,11 @@
                         <span th:text="${user.email}" type="text" class="form-control" id="email" name="email" th:disabled="true"></span>
                     </div>
                     <div class="base_info">
-                        <button type="button" id="regSubmit" class="btn btn-primary">保存</button>
+                        <button type="button" id="editSubmit" class="btn btn-primary">保存</button>
                     </div>
+
+                    <input th:value="${user.id}" type="hidden" class="form-control" id="userId" name="userId" th:hidden="true" >
+
                 </form>
 
             </div>
