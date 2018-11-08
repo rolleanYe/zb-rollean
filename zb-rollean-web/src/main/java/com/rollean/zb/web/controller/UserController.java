@@ -1,6 +1,7 @@
 package com.rollean.zb.web.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.rollean.zb.common.annotation.NoLogin;
 import com.rollean.zb.domain.User;
 import com.rollean.zb.service.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -28,12 +29,26 @@ public class UserController {
 
     }
 
+    @NoLogin
     @GetMapping(value = "/userCenter")
     public String userCenter(Model model){
+
+        User user = userRepository.queryByName("叶俊");
+        model.addAttribute("user",user);
 
         return "user/userBasic";
     }
 
+
+    @NoLogin
+    @RequestMapping(value = "/userTest")
+    public String userTest(Model model){
+        User user = userRepository.queryByName("叶俊");
+        model.addAttribute("user",user);
+
+        return "user/userBasic :: div001";
+
+    }
 
 
 }

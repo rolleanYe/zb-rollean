@@ -22,8 +22,8 @@
 
 <div class="container">
     <div class="panel panel-default">
-        <div class="title_userCenter">个人中心</div>
-        <div style="text-align: right">
+        <div class="title_userCenter" style="margin-left: 5px;">个人中心</div>
+        <div style="text-align: right; margin-right: 10px;">
             <a href="#" target="_blank">实名认证</a>
             手机：<span style="color:green;font-weight: bold">已经认证</span>
         </div>
@@ -34,27 +34,53 @@
 
 
         <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-md-6" style="font-weight: bold">基本信息</div>
-                        <div class="col-md-6" style="text-align: right"><a>编辑</a></div>
+            <div id="div001" th:fragment="div001">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6" style="font-weight: bold">基本信息</div>
+                            <div class="col-md-6" style="text-align: right"><a>编辑</a></div>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="padding-left: 10px;">
+                        <div class="base_info">昵称: <span th:text="${user.nickname}"></span></div>
+                        <div class="base_info">性别: <span th:text="${user.age}"></span></div>
+                        <div class="base_info">所在地: <span th:text="${user.mobile}"></span></div>
+                        <div class="base_info">工作年限: <span th:text="${user.email}"></span></div>
+                        <div class="base_info">就职公司: </div>
+                        <div class="base_info">QQ:</div>
+                        <div class="base_info">微信:</div>
+                        <div class="base_info">个人介绍:</div>
+                        <div style="margin-left: 35px;">nihao adfasdf asdfafa asfafasf asfasfa asfasf</div>
                     </div>
                 </div>
-                <div class="panel-body" style="padding-left: 10px;">
-                    <div class="base_info">昵称:</div>
-                    <div class="base_info">性别:</div>
-                    <div class="base_info">所在地:</div>
-                    <div class="base_info">工作年限:</div>
-                    <div class="base_info">就职公司:</div>
-                    <div class="base_info">QQ:</div>
-                    <div class="base_info">微信:</div>
-                    <div class="base_info">个人介绍:</div>
-                    <div style="margin-left: 35px;">nihao adfasdf asdfafa asfafasf asfasfa asfasf</div>
-                </div>
             </div>
+
         </div>
     </div>
 </div>
 </body>
+
+<script type="text/javascript" th:inline="javascript">
+    jQuery(document).ready(function () {
+
+        $("#userBasicIc").click(
+            function(){
+                $.ajax({
+                    url: "/user/userTest",
+                    date: {id : 111},
+                    success: function (result) {
+                        $("#div001").html(result);
+                    }
+                })
+
+            }
+        );
+
+    });
+
+
+
+</script>
+
 </html>
