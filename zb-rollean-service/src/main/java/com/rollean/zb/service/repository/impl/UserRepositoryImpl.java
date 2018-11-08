@@ -48,4 +48,15 @@ public class UserRepositoryImpl implements UserRepository {
         TbUser tbUser = tbUserMapper.loginQuery(userName,userPassword);
         return UserConvert.convertUser(tbUser);
     }
+
+    @Override
+    public User duplicateCheck(String nickname, String mobile, String email) {
+        return null;
+    }
+
+    @Override
+    public void insertUser(User user) {
+        TbUser tbUser = UserConvert.convertTbUser(user);
+        tbUserMapper.insert(tbUser);
+    }
 }

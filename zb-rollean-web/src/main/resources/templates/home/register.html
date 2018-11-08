@@ -1,16 +1,135 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
+<head th:replace="common/common_header :: common_header(~{::title},~{},~{::style},~{})">
     <title>注册</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <style>
+        form>div{
+            margin: 10px;
+        }
+
+        .formError{
+            color: #bc211f;
+        }
+
+    </style>
+
 </head>
 <body>
-    <p th:text="'==>name: ' + ${user.nickname} + '!'" />
-    <p th:text="'==>age: ' + ${user.age} + '!'" />
-    <p th:text="'==mobile: ' + ${user.mobile} + '!'" />
-    <p th:text="'==email: ' + ${user.email} + '!'" />
-    <p th:text="'==pwd: ' + ${user.pwd} + '!'" />
-    <p th:text="'==gender: ' + ${user.gender} + '!'" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-4">
+            <div class="panel panel-default" style="margin-top: 100px; width: 400px;">
+                <div class="panel-heading">
+                    <h4 class="panel-title" style="text-align: center">用户注册</h4>
+                </div>
 
+                <div class="panel-body" style="text-align: center;">
+                    <form role="form" id="registerForm" th:action="@{/home/register}">
+
+                        <div th:if="${#strings.isEmpty(errorCont) != true}">
+                            <label th:text="${errorCont}" class="formError"></label>
+                        </div>
+
+                        <div>
+                            <input th:value="${user.mobile}" type="text" class="form-control" id="mobile" name="mobile" placeholder="请输入手机号" >
+                        </div>
+                        <div>
+                            <input th:value="${user.email}" type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱" >
+                        </div>
+                        <div>
+                            <input th:value="${user.nickname}" type="text" class="form-control" id="nickname" name="nickname" placeholder="请输入昵称" >
+                        </div>
+                        <div>
+                            <input th:value="${user.pwd}" type="password" class="form-control" id="pwd" name="pwd" placeholder="请输入密码" >
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="请再次输入密码" >
+                        </div>
+
+                        <div>
+                            <button type="button" id="regSubmit" class="btn btn-primary">注册</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
 </body>
+
+<script type="text/javascript" th:inline="javascript">
+
+    $.validator.addMethod( "mobile", function( valueTmp  ) {
+        return valueTmp.match( /^1[34578]\d{9}$/ );
+    }, "请输入正确的手机号" );
+
+    jQuery(document).ready(function () {
+        $("#registerForm").validate(
+                {
+                    rules: {
+                        mobile: {
+                            required: true,
+                            mobile: true
+                        },
+
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        nickname: {
+                            required: true,
+                            minlength: 2
+                        },
+                        pwd: {
+                            required:true,
+                            rangelength:[6,12]
+                        },
+                        confirm_password: {
+                            required: true,
+                            equalTo: "#pwd"
+                        }
+                    },
+
+                    messages:{
+                        mobile: {
+                            required: "请出入手机号"
+                        },
+
+                        email: {
+                            required: "请输入邮箱",
+                            email: "请输入正确的邮箱"
+                        },
+                        nickname: {
+                            required: "请输入昵称",
+                            minlength: "最小长度2位"
+                        },
+                        pwd: {
+                            required:true,
+                            rangelength:"密码长度6~12位"
+                        },
+                        confirm_password: {
+                            required: "请再次输入密码",
+                            equalTo: "两次密码输入不一样"
+                        }
+                    },
+                    onfocusout:true,
+                    errorClass:"formError"
+                }
+        );
+
+
+
+        $("#regSubmit").click(
+            function(){
+                $("#registerForm").submit();
+            }
+        );
+
+    })
+
+</script>
+
 </html>

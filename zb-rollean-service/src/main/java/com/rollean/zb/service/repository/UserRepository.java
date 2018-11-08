@@ -13,4 +13,8 @@ public interface UserRepository {
 
     User loginQuery(String userName, String userPassword);
 
+    User duplicateCheck(String nickname, String mobile, String email);
+
+    void insertUser(User user);
+
 }

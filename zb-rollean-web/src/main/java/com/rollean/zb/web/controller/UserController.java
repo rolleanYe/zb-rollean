@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Slf4j
 @Controller
 @RequestMapping(value = "/user")
@@ -29,12 +31,13 @@ public class UserController {
 
     }
 
-    @NoLogin
     @GetMapping(value = "/userCenter")
-    public String userCenter(Model model){
+    public String userCenter(Model model, HttpSession httpSession){
 
-        User user = userRepository.queryByName("叶俊");
-        model.addAttribute("user",user);
+        User currUser = (User) httpSession.getAttribute("loginUser");
+
+        User user = userRepository.queryById(currUser.getId().toString());
+        model.addAttribute("user",currUser);
 
         return "user/userBasic";
     }
