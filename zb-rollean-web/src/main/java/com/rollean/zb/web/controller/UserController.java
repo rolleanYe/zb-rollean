@@ -52,7 +52,7 @@ public class UserController {
 
         model.addAttribute("user",user);
 
-        return "user/userBasic :: div001";
+        return "user/user_content :: userBasic";
 
     }
 
@@ -62,7 +62,6 @@ public class UserController {
 
         User currUser = (User) httpSession.getAttribute("loginUser");
         User user = userRepository.queryById(currUser.getId().toString());
-
         model.addAttribute("user",user);
 
         return "user/user_content :: userEdit";
@@ -70,19 +69,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/editSave")
-    public String editSave(String nickname,String age,String userId, Model model, HttpSession httpSession){
+    public String editSave(String nickname,String age,String userId,String gender, Model model, HttpSession httpSession){
+
+        User currUser = (User) httpSession.getAttribute("loginUser");
+        currUser = userRepository.queryById(currUser.getId().toString());
+        model.addAttribute("user",currUser);
 
         log.info("开始修改用户信息: "+ nickname + "~" + age +"~"+ userId);
         User user = userRepository.queryById(userId);
-        if(user.getNickname().equals(nickname) && user.getAge()!=null && user.getAge().equals(age)){
-            return "user/userBasic :: div001";
+        if(user.getNickname().equals(nickname) &&
+                user.getAge()!=null && user.getAge().toString().equals(age) &&
+                user.getGender()!=null && user.getGender().toString().equals(gender)){
+            return "user/user_content :: userBasic";
         }
 
         if(!user.getNickname().equals(nickname)){
             User userTmp = userRepository.queryByName(nickname);
             if(userTmp != null){
                 System.out.println("当前昵称已经被其他用户使用!!!");
-                return "user/userBasic :: div001";
+                return "user/user_content :: userEdit";
             }
         }
 
@@ -90,14 +95,15 @@ public class UserController {
         userUpd.setId(new Integer(userId));
         userUpd.setNickname(nickname);
         userUpd.setAge(new Integer(age));
+        userUpd.setGender(new Integer(gender));
         userRepository.updateUser(userUpd);
 
-        User currUser = userRepository.queryById(userId);
+        currUser = userRepository.queryById(userId);
         httpSession.setAttribute("loginUser",currUser);
 
         model.addAttribute("user",currUser);
 
-        return "user/userBasic :: div001";
+        return "user/user_content :: userBasic";
 
     }
 

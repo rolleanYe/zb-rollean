@@ -6,6 +6,51 @@
 </head>
 <body>
 
+<div th:fragment="userBasic">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-6" style="font-weight: bold">基本信息</div>
+                <div class="col-md-6" style="text-align: right" id="userEdit"><a>编辑</a></div>
+            </div>
+        </div>
+        <div class="panel-body" style="padding-left: 10px;">
+            <div class="row base_info">
+                <div class="col-md-1">昵称: </div>
+                <span class="col-md-5" th:text="${user.nickname}"></span>
+            </div>
+
+            <div class="row base_info">
+                <div class="col-md-1">年龄: </div>
+                <span class="col-md-5" th:text="${user.age}"></span>
+            </div>
+
+            <div class="row base_info">
+                <div class="col-md-1">性别:</div>
+                <span class="col-md-5" th:if="${#strings.isEmpty(user.gender) == false}" >
+                                    <span th:if="${#strings.equals(user.gender,'1')}">
+                                        男
+                                    </span>
+                                    <span th:if="${#strings.equals(user.gender,'2')}">
+                                        女
+                                    </span>
+                            </span>
+            </div>
+
+            <div class="row base_info">
+                <div class="col-md-1">手机: </div>
+                <span class="col-md-5" th:text="${user.mobile}"></span>
+            </div>
+
+            <div class="row base_info">
+                <div class="col-md-1">邮箱: </div>
+                <span class="col-md-5" th:text="${user.email}"></span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
     <div th:fragment="userEdit">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -15,21 +60,49 @@
             </div>
             <div class="panel-body" style="padding-left: 10px;">
 
-                <form role="form" >
-                    <div class="base_info">昵称:
-                        <input th:value="${user.nickname}" type="text" class="form-control" id="nickname" name="nickname" placeholder="请输入昵称" >
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="font-weight: 200;">昵称:</label>
+                        <div class="col-md-5">
+                            <input th:value="${user.nickname}" type="text" class="form-control" id="nickname" name="nickname" placeholder="请输入昵称" maxlength="20" >
+                        </div>
                     </div>
-                    <div class="base_info">年龄:
-                        <input th:value="${user.age}" type="text" class="form-control" id="age" name="age" placeholder="请输入年龄" >
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="font-weight: 200;">年龄:</label>
+                        <div class="col-md-5">
+                            <input th:value="${user.age}" type="text" class="form-control" id="age" name="age" placeholder="请输入年龄" maxlength="3">
+                        </div>
                     </div>
-                    <div class="base_info">手机:
-                        <span th:text="${user.mobile}" type="text" class="form-control" id="mobile" name="mobile" th:disabled="true"> </span>
+
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="font-weight: 200;">性别:</label>
+                        <div class="col-md-5">
+                            <label class="control-label">
+                                <input type="radio" value="1" name="gender" th:checked="${#strings.equals(user.gender,'1')}"> 男
+                            </label>
+                            &nbsp;&nbsp;
+                            <label class="control-label">
+                                <input type="radio" value="2" name="gender" th:checked="${#strings.equals(user.gender,'2')}"> 女
+                            </label>
+                        </div>
                     </div>
-                    <div class="base_info">邮箱:
-                        <span th:text="${user.email}" type="text" class="form-control" id="email" name="email" th:disabled="true"></span>
+
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="font-weight: 200;">手机:</label>
+                        <div class="col-md-5">
+                            <span th:text="${user.mobile}" type="text" class="form-control" id="mobile" name="mobile" th:disabled="true"> </span>
+                        </div>
                     </div>
-                    <div class="base_info">
-                        <button type="button" id="editSubmit" class="btn btn-primary">保存</button>
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="font-weight: 200;">邮箱:</label>
+                        <div class="col-md-5">
+                            <span th:text="${user.email}" type="text" class="form-control" id="email" name="email" th:disabled="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <button type="button" id="editSubmit" class="btn btn-primary" style="float: right;">保存</button>
+                        </div>
                     </div>
 
                     <input th:value="${user.id}" type="hidden" class="form-control" id="userId" name="userId" th:hidden="true" >
@@ -41,4 +114,91 @@
     </div>
 
 </body>
+
+
+<!--<script type="text/javascript" th:inline="javascript" th:fragment="userBasicScript">-->
+    <!--jQuery(document).ready(function () {-->
+
+        <!--$("#userBasicIc").click(-->
+                <!--function(){-->
+                    <!--$.ajax({-->
+                        <!--url: "/user/userInfo",-->
+                        <!--success: function (result){-->
+                            <!--$("#div001").html(result);-->
+                            <!--$("#userEdit").click(-->
+                                    <!--function () {userEdit();}-->
+                            <!--);-->
+                        <!--}-->
+                    <!--})-->
+                <!--}-->
+        <!--);-->
+
+        <!--$("#userEdit").click(-->
+                <!--function(){userEdit();}-->
+        <!--);-->
+
+
+        <!--function userEdit() {-->
+            <!--$.ajax({-->
+                <!--url: "/user/userEdit",-->
+                <!--success: function (result) {-->
+                    <!--$("#div001").html(result);-->
+                    <!--$("#editSubmit").click(-->
+                            <!--function(){-->
+                                <!--editSave();-->
+                            <!--}-->
+                    <!--);-->
+                <!--}-->
+            <!--})-->
+        <!--};-->
+
+
+        <!--function editSave() {-->
+
+            <!--var nickname = $("#nickname").val();-->
+            <!--var age = $("#age").val();-->
+            <!--var userId = $("#userId").val();-->
+            <!--var gender = $("input:radio[name='gender']:checked").val();-->
+
+            <!--if(!nickname){-->
+                <!--alert('昵称不能为空');-->
+                <!--return false;-->
+            <!--}-->
+
+            <!--if(nickname.length < 2){-->
+                <!--alert('昵称不能小于2位');-->
+                <!--return false;-->
+            <!--}-->
+
+            <!--if(nickname.length > 20){-->
+                <!--alert('昵称不能大于20位');-->
+                <!--return false;-->
+            <!--}-->
+
+            <!--if(age.length > 3){-->
+                <!--alert('年龄不能大于3位');-->
+                <!--return false;-->
+            <!--}-->
+
+            <!--if( !age.match(/[1-9][0-9]*$/)){-->
+                <!--alert('非法数字');-->
+                <!--return false;-->
+            <!--}-->
+
+            <!--$.ajax({-->
+                <!--url: "/user/editSave",-->
+                <!--data:{"nickname":nickname,"age":age,"userId":userId,"gender":gender},-->
+                <!--success: function (result) {-->
+                    <!--$("#div001").html(result);-->
+                    <!--$("#userEdit").click(-->
+                            <!--function () {userEdit();}-->
+                    <!--);-->
+                <!--}-->
+            <!--})-->
+        <!--}-->
+    <!--});-->
+
+
+<!--</script>-->
+
 </html>
